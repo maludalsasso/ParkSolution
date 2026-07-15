@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estacionamento Autoatendimento (Firebase)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f3f4f6; font-family: sans-serif; }
+    </style>
+</head>
+<body>
+
+<div class="container py-4" style="max-width: 500px;">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">🅿️ Auto-Estacionamento</h2>
+        <p class="text-muted small">Registre sua entrada e saída de forma rápida</p>
+    </div>
+
+    <!-- Abas para navegar -->
+    <ul class="nav nav-pills nav-fill mb-4" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active py-3 fw-bold" id="tab-entrada" data-bs-toggle="pill" data-bs-target="#entrada" type="button">1. REGISTRAR ENTRADA</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link py-3 fw-bold" id="tab-saida" data-bs-toggle="pill" data-bs-target="#saida" type="button">2. PAGAR E SAIR</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+        <!-- ABA ENTRADA -->
+        <div class="tab-pane fade show active" id="entrada">
+            <div class="card border-0 shadow-sm p-4">
+                <form id="form-entrada">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Placa do Veículo</label>
+                        <input type="text" id="placa-entrada" class="form-control form-control-lg text-center" placeholder="AAA0A00" required style="text-transform: uppercase; font-size: 1.5rem; letter-spacing: 2px;">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Modelo / Cor</label>
+                        <input type="text" id="modelo" class="form-control" placeholder="Ex: Onix Prata" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold">Confirmar Entrada 🚗</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ABA SAÍDA -->
+        <div class="tab-pane fade" id="saida">
+            <div class="card border-0 shadow-sm p-4">
+                <div id="busca-saida">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Digite sua Placa para Sair</label>
+                        <input type="text" id="placa-saida" class="form-control form-control-lg text-center" placeholder="AAA0A00" style="text-transform: uppercase; font-size: 1.5rem; letter-spacing: 2px;">
+                    </div>
+                    <button onclick="calcularEstadia()" class="btn btn-success btn-lg w-100 py-3 fw-bold">Calcular Tempo e Valor 💰</button>
+                </div>
+
+                <!-- Tela de Pagamento -->
+                <div id="tela-pagamento" class="d-none text-center mt-3">
+                    <h4 class="text-muted">Resumo da Estadia</h4>
+                    <hr>
+                    <p class="fs-5">Tempo: <strong id="tempo-permanencia">0h 00m</strong></p>
+                    <p class="fs-3 text-success">Total: <strong id="valor-pagar">R$ 0,00</strong></p>
+                    
+                    <div class="alert alert-warning py-2 mt-3" role="alert">
+                        Chave PIX (CPF) <strong>09662247955</strong><br>
+                        <small>Destino: Maria Luiza P Dalsasso</small>
+                    </div>
+
+                    <button onclick="finalizarPagamento()" class="btn btn-dark btn-lg w-100 py-3 fw-bold mt-2">Já fiz o Pix, liberar veículo! ✅</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts do Firebase (SDK v10+) -->
+<script type="module" src="app.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
